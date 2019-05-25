@@ -1,34 +1,59 @@
-文件目录：
-新建blog-cms文件。在blog-cms文件下新建client文件夹存放前端文件，在blog-cms文件下新建server存放后端文件。
+> 最近在折腾一个cms系统，用的vue+express，但是就一个表单提交就弄了好久，记录一下。
+
+## 环境：
+服务：Node10+
+前端：Vue 2.x
+后端：Express 4.x
+数据库：MongoDB
+
+## 技术栈：
+- vue
+- express
+- axios
+- express-formidable
+- element-ui
+
+使用vue +express 做一个表单提交的练手demo
+可用于做问卷调查。
+
+## 文件目录：
+新建blog-cms文件。
+- 在blog-cms文件下新建client文件夹存放前端文件
+- 在blog-cms文件下新建server存放后端文件。
+
 ![161558680390_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-be85128752aaa974.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 配置vue环境
-在client文件下使用[vue-cli](https://cli.vuejs.org/zh/guide/installation.html)工具，快速生成一个vue项目，
-输入vue-cli安装命令：
+在client文件下使用[vue-cli](https://cli.vuejs.org/zh/guide/installation.html)工具，快速生成一个vue项目。
+- 输入vue-cli安装命令：
 `npm install vue-cli -g`
-输入初始化命令（回车默认即可）：
+- 初始化一个模板（随心回车即可）
 `vue init webpack`
-启动：
+- 启动：
 `npm start`
-然后打开浏览器`http://localhost:8080/#/`看到：
+- 然后打开浏览器`http://localhost:8080/#/`    
+看到：
 ![171558680667_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-7307fc7fb9c0cbfd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-表示安装成功
+表示安装成功！
 ## 配置express环境
-打开server文件夹，安装express，我们使用[express 生成器](http://www.expressjs.com.cn/starter/generator.html)，来快速生成一个express环境。
-安装express-generator：
+打开server文件夹，安装express，我们使用[express 生成器](http://www.expressjs.com.cn/starter/generator.html)，来快速生成一个express项目。
+- 安装express-generator：
 `npm install express-generator -g`
-然后生成Express 应用：
+- 生成Express 应用：
 `express --view=ejs`
-之后下载依赖：
+- 下载依赖：
 `npm i`
-然后启动项目：
+- 然后启动项目：
 `npm start`
-浏览器打开`http://localhost:8080/#/`看到：
+- 浏览器打开`http://localhost:8080/#/`    
+看到：
+
 ![181558680955_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-1491a6ef1b6b60a7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 就说明安装成功了！
 
-然后在server目录下新建models，在models下新建get_article_list.js文件写入：
+然后在server目录下新建models，在models下新建get_article_list.js文件并写入：
 ```
  /* 目录：server/models/get_article_list.js */
 var express = require('express');
@@ -48,13 +73,16 @@ var app=express();//这个一定要在上面
 var getArticleList = require('./models/get_article_list')
 app.use('/get_article_list', getArticleList)
 ```
-然后我们重启服务，在浏览器打开：`http://localhost:3000/get_article_list`，显示如图，表示成功。
+然后重启服务，在浏览器打开：`http://localhost:3000/get_article_list`，    
+显示如图，表示成功。
+
 ![191558681652_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-6211f8946f63828d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## axios
-然后在client下，下载axios，用于ajax请求：
+## 添加axios
+在vue中使用axios请求后端接口，
+- 在client下，下载axios
 `npm i axios --save`
-然后更改client/src/components/HelloWorld.vue:
+- 然后更改client/src/components/HelloWorld.vue:
 ```
 <template>
   <div>
@@ -81,8 +109,6 @@ export default {
   },
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;
@@ -91,12 +117,14 @@ h1, h2 {
 
 ```
 之后打开浏览器发现报错，
+
 ![201558683480_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-a55ea94d2042fd43.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-这是因为跨域，我们使用[cros](https://www.cnblogs.com/happyflyingpig/p/8118818.html)解决。
-直接在server/app.js添加：
+
+这是因为跨域，我选择使用[cros](https://www.cnblogs.com/happyflyingpig/p/8118818.html)解决。
+直接在后端server/app.js添加：
 ```
 var app = express()//在他的下面
-// 以下 配置允许跨域请求； **********一定要放在上面**********
+// 允许跨域
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
@@ -113,15 +141,16 @@ app.use('/get_article_list', getArticleList)
 
 
 ![211558684671_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-e5bd2b3bd896b411.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 参考：[不要再问我跨域的问题了](https://segmentfault.com/a/1190000015597029)
 
 ## 使用elementUI
+为了做出的东西好看一点，选择一个使用elementUI作为UI库。
 [elementUI官网](https://element.eleme.cn/#/)
-client下使用命令`npm i element-ui --save`下载
-然后在main.js里使用：
+- client下下载`npm i element-ui --save`
+- 然后在main.js里使用：
 ```
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -140,7 +169,7 @@ new Vue({
 
 ```
 
-## get 前端
+## get方法提交 前端代码
 在 client/src/components下新建GetForm.vue：
 ```
 <template>
@@ -247,7 +276,7 @@ export default {
 ![221558686564_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-52e0021830f1ede0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 表示成功。
 
-## get 后端
+## get方法提交 后端
 在server/models下新建get_form.js，输入：
 ```
 var express = require('express');
@@ -271,7 +300,7 @@ app.use('/get_form', getForm)
 在前端中提交表单，就可以在后端的命令行工具上看到提交的信息了.
 ![231558687197_.pic.jpg](https://upload-images.jianshu.io/upload_images/7072486-55df6e4e3b778476.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-##post 前端
+## post方法提交 前端
 
 在client/src/components下添加PostForm.vue：
 ```
@@ -327,8 +356,8 @@ export default {
 </script>
 
 ```
-同理，给PostForm添加路由和导航：
-client/src/router/index.js里：
+同理，给PostForm添加路由和导航，
+在client/src/router/index.js里：
 ```
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -388,10 +417,10 @@ export default {
 </style>
 
 ```
-## post 后端
+## post方法提交 后端代码
 post 提交的表单里有图片文件，这里需要借助一个插件[express-formidable](https://www.npmjs.com/package/express-formidable)
-在sever下 使用命令`npm install express-formidable --save`
-在server/models下新建post_form.js
+- 在sever下 下载`npm install express-formidable --save`
+- 在server/models下新建post_form.js
 ```
 var express = require('express');
 var router = express.Router();
@@ -428,3 +457,5 @@ app.use('/post_form', postForm)
 **参考：**
 - 分别安装express和Vue：https://www.jianshu.com/p/f0e292508d14
 - 搭建一个VUE+Express前后端分离的开发环境:https://blog.csdn.net/yuyuking/article/details/82856944
+
+源码在github（欢迎star）：[从零做一个问卷调查系统（一）](https://github.com/AnsonZnl/blog-cms/tree/master/%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5)
