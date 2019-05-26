@@ -1,7 +1,6 @@
 <template>
   <div>
    <h1>{{this.msg}}</h1>
-
 <el-table
       :data="answerData"
       style="width: 100%">
