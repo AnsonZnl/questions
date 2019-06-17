@@ -1,5 +1,13 @@
 > 最近在折腾一个cms系统，用的vue+express，但是就一个表单提交就弄了好久，记录一下。
 
+## 启动
+- server 
+`npm install`
+`npm start`
+- client
+`npm install`
+`npm start`
+
 ## 环境：
 服务：Node10+
 前端：Vue 2.x

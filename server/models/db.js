@@ -12,6 +12,7 @@ mongoose.connect("mongodb://localhost:27017/form", {useNewUrlParser:true}, funct
 const Schema= mongoose.Schema;
 //定义answerSchema的字段（规则）
 let answerSchema= new Schema({
+    id: {type: String, require: true},
     date: {type: String, require: true},
     name: {type: String, require: true},
     age: Number,

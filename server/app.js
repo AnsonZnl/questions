@@ -6,8 +6,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // 路由
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 // 以下 配置允许跨域请求； **********一定要放在上面**********
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -22,9 +20,12 @@ app.all('*', function (req, res, next) {
 var getArticleList = require('./models/get_article_list')
 var getForm = require('./models/get_form.js')
 var postForm = require('./models/post_form.js')
+var deletes = require('./models/delete.js')
+
 app.use('/get_article_list', getArticleList)
 app.use('/get_form', getForm)
 app.use('/post_form', postForm)
+app.use('/delete', deletes)
 
 
 // view engine setup
@@ -36,9 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

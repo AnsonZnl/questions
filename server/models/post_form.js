@@ -14,5 +14,5 @@ router.post('/', function(req, res, next) {
     console.log('图片地址：'+req.files.file.path);
     console.log(req.fields);
   });
-  
+
 module.exports = router;

@@ -100,6 +100,7 @@ export default {
     data () {
         return {
             form:{
+                id: new Date().getTime(),
                 date: this.getDate(),
                 age: '',
                 name: '',

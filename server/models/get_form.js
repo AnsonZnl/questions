@@ -6,6 +6,7 @@ var answerModel = require('./db.js').answerModel;
 router.get('/', function(req, res, next) {
     console.log(req.query);
       let answer={
+        id: req.query.id,
         date: req.query.date,
         name: req.query.name,
         age: req.query.age,

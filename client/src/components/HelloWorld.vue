@@ -5,6 +5,12 @@
       :data="answerData"
       style="width: 100%">
       <el-table-column
+        
+        type="index"
+        label="序号"
+        width="180">
+      </el-table-column>
+      <el-table-column
         prop="date"
         label="日期"
         width="180">
@@ -58,8 +64,17 @@ export default {
      handleEdit(index, row) {
         console.log(index, row);
       },
+      // 删除
       handleDelete(index, row) {
-        console.log(index, row);
+        console.log(row.id);
+        axios.get('http://localhost:3000/delete',{
+          params:{id: row.id}
+        })
+        .then(res=>{
+          console.log(res.data)
+        }).catch(err=>{
+          console.log(err);
+        })
       }
   }
 }
