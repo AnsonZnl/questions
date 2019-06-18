@@ -1,7 +1,7 @@
 // Model.deleteOne(conditions,callback);
-var express = require('express');
-var router = express.Router();
-var answerModel = require('./db.js').answerModel;
+const express = require('express');
+const router = express.Router();
+const answerModel = require('./db.js').answerModel;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
           id: req.query.id
       },(err,data)=>{
         if(!err){
-            console.log(data)
+            res.send(data)
         }else{
           throw err
         }

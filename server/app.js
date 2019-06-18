@@ -16,16 +16,31 @@ app.all('*', function (req, res, next) {
   else  next();
 })
 
+
+
+app.get('/', function (req, res) {
+  res.send('hello, express')
+})
+
+app.get('/users/:name', function (req, res) {
+  res.send('hello, ' + req.params.name)
+})
+
+
 // api
 var getArticleList = require('./models/get_article_list')
 var getForm = require('./models/get_form.js')
 var postForm = require('./models/post_form.js')
 var deletes = require('./models/delete.js')
+var shows = require('./models/show.js')
 
 app.use('/get_article_list', getArticleList)
 app.use('/get_form', getForm)
 app.use('/post_form', postForm)
 app.use('/delete', deletes)
+app.use('/show', shows)
+
+
 
 
 // view engine setup

@@ -5,7 +5,6 @@
       :data="answerData"
       style="width: 100%">
       <el-table-column
-        
         type="index"
         label="序号"
         width="180">
@@ -28,14 +27,16 @@
       <template slot-scope="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          @click="handleShow(scope.$index, scope.row)">查看</el-button>
         <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+         <el-button
           size="mini"
           type="danger"
           @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       </template>
     </el-table-column>
-
     </el-table>
 
   </div>
@@ -61,19 +62,23 @@ export default {
     })
   },
   methods:{
-     handleEdit(index, row) {
-        console.log(index, row);
+      handleShow(index, row){
+        console.log(index,row.id);
+         this.$router.push({name: 'Show',params:{id: row.id}})
       },
-      // 删除
+      handleEdit(index, row) {
+          console.log(index, row);
+        },
       handleDelete(index, row) {
-        console.log(row.id);
+        // console.log(row.id);
         axios.get('http://localhost:3000/delete',{
           params:{id: row.id}
-        })
-        .then(res=>{
-          console.log(res.data)
+        }).then(res=>{
+          if(res.status === 200){
+            this.answerData.splice(index,1)
+          }
         }).catch(err=>{
-          console.log(err);
+            console.log(err);
         })
       }
   }
