@@ -33,12 +33,14 @@ var getForm = require('./models/get_form.js')
 var postForm = require('./models/post_form.js')
 var deletes = require('./models/delete.js')
 var shows = require('./models/show.js')
+var updata = require('./models/updata.js')
 
 app.use('/get_article_list', getArticleList)
 app.use('/get_form', getForm)
 app.use('/post_form', postForm)
 app.use('/delete', deletes)
 app.use('/show', shows)
+app.use('/updata', updata)
 
 
 

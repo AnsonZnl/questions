@@ -3,6 +3,7 @@
         <h2>详情</h2>
                 <el-row type="flex" justify="center">
           <el-col :lg="12" :md="16" :sm="22" :xs="22">
+            <div class="col">
             <el-form
             v-if=data
             ref="form" 
@@ -10,7 +11,6 @@
             label-width="80px" 
             label-position="top"
             :disabled=fromDisabled
-            class="form"
             >
                 <el-form-item label="您的姓名/昵称">
                     <el-input v-model="data.name"></el-input>
@@ -91,10 +91,13 @@
                 </el-form-item>
                 <el-divider></el-divider>
                 <el-form-item>
-                    <el-button type="primary" @click="edit">编辑</el-button>
-                    <el-button>返回</el-button>
                 </el-form-item>
             </el-form>
+            <el-form ref="form" >
+              <el-button type="primary" @click="edit">{{ editText }}</el-button>
+              <el-button>返回</el-button>
+            </el-form>
+            </div>
           </el-col>
         </el-row>
     </div>
@@ -104,15 +107,16 @@ import axios from "axios"
 export default {
     data(){
         return{
+            editText: "编辑",
             id:'',
-            fromDisabled:true,
+            fromDisabled: true,
             data: this.$route.params.data
         }
     },
     created() {
-        console.log("传的"+this.$route.params.id);
+        // console.log("传的"+this.$route.params.id);
         this.id = this.$route.params.id
-        axios.get('http://localhost:3000/show/'+this.id,{}).then(res=>{
+        axios.get(this.globalFunction.ip+'/show/'+this.id,{}).then(res=>{
           if(res.status === 200){
            console.log(res.data)
            this.data = res.data
@@ -123,13 +127,31 @@ export default {
     },
     methods: {
         edit(){
-            alert('编辑')
+            this.fromDisabled = false;
+            this.editText === "编辑" ? '提交' : "编辑";
+            console.log(this.id, this.data)
+            if(!this.fromDisabled){
+              axios.get(this.globalFunction.ip+'/updata',{
+                params: {
+                  id: this.id,
+                  data: this.data
+                }
+            },{
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(res=>{
+                console.log(res)
+            }).catch(err=>{
+                console.log(err)
+            })
+            }
         }
     },
 }
 </script>
 <style  scoped>
-.form{
+.col{
   text-align: left;
   border: 1px #DCDFE6 solid;
   padding: 24px;

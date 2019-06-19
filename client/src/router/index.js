@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import GetForm from '@/components/GetForm.vue'
+import admin from '@/components/admin'
+import question from '@/components/questions.vue'
 import PostForm from '@/components/PostForm.vue'
 import Show from '@/components/show.vue'
 
@@ -10,14 +10,18 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      path:'/',
+      redirect: '/question'
     },
     {
-      path:'/get_form',
-      name: 'GetForm',
-      component: GetForm
+      path:'/question',
+      name: 'question',
+      component: question
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin
     },
     {
       path: '/post_form',

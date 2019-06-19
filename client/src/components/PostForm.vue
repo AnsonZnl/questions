@@ -50,7 +50,7 @@ export default {
                 'Content-Type': 'multipart/form-data'
               }
             }
-            axios.post('http://127.0.0.1:3000/post_form', formData, config)
+            axios.post(this.globalFunction.ip+'/post_form', formData, config)
             .then(res=>{
                 console.log(res)
             }).catch(err=>{

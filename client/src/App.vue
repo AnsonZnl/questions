@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <div class="nav">
-      <router-link to='/'>HelloWold</router-link>
-      <router-link to='/get_form'>get form</router-link>
-      <router-link to="/post_form">post form</router-link>
+      <router-link to='/question'>首页</router-link>
+      <router-link to='/admin'>admin</router-link>
     </div>
     <router-view/>
   </div>
