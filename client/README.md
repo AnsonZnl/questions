@@ -28,3 +28,8 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+打包事项：https://blog.csdn.net/qq_15901351/article/details/83043062
+- 打包事项：
+    - 解决打包时的css背景图片路径问题：build/utils.js 下的ExtractTextPlugin.extract下添加：`publicPath:'../../'`
+    - 修改config/index.js下的`assetsPublicPath: '/'`改为：`assetsPublicPath: './',`
+    - productionSourceMap默认是true改为false
