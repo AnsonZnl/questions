@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var answerModel = require('./db.js').answerModel;
+var answerModel = require('../models/db.js').answerModel;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
           let total = data.length;
           answerModel.find({},{},{skip: page, limit: 10},(err,data)=>{
             if(!err){
+                res.cookie("znl",'zhangsan',{maxAge: 900000});
                 res.json({
                   data: data,
                   total: total

@@ -4,11 +4,23 @@ import admin from '@/components/admin'
 import question from '@/components/questions.vue'
 import PostForm from '@/components/PostForm.vue'
 import Show from '@/components/show.vue'
+import login from '@/components/login.vue'
+import reg from '@/components/reg.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path:'/login',
+      name: "login",
+      component: login
+    },
+    {
+      path:'/reg',
+      name: 'reg',
+      component: reg
+    },
     {
       path:'/',
       redirect: '/question'

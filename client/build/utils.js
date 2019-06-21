@@ -48,7 +48,7 @@ exports.cssLoaders = function (options) {
       return ExtractTextPlugin.extract({
         use: loaders,
         fallback: 'vue-style-loader',
-        publicPath:'../../'//解决打包时的css背景图片路径问题
+        //publicPath:'../../' // 打包时解除注释 解决打包时的css背景图片路径问题
       })
     } else {
       return ['vue-style-loader'].concat(loaders)

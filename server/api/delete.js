@@ -1,7 +1,7 @@
 // Model.deleteOne(conditions,callback);
 const express = require('express');
 const router = express.Router();
-const answerModel = require('./db.js').answerModel;
+const answerModel = require('../models/db.js').answerModel;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

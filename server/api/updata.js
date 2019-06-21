@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var answerModel = require('./db.js').answerModel;
+var answerModel = require('../models/db.js').answerModel;
 
 router.get('/', function(req, res){
     var data = JSON.parse(req.query.data);
