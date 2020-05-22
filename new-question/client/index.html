@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防疫期间员工每日健康统计</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<!-- 参考： https://www.wjx.cn/xz/55556701.aspx -->
+
+<body>
+    <div id="app" v-cloak>
+        <div>
+            <h2>{{mes}}</h2>
+            <ul>
+                <li v-for="(item, index) in list" :key="index">
+                    {{index}}-{{item.title}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.js"></script>
+    <script>
+        const ajax = axios.create({
+            baseURL: 'http://localhost:3000',
+            timeout: 1000,
+            headers: {
+                'X-Custom-Header': 'foobar'
+            }
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                mes: '防疫期间员工每日健康统计',
+                list: null
+            },
+            created() {
+                this.getQuestion()
+            },
+            methods: {
+                getQuestion() {
+                    ajax.get('/')
+                        .then((res) => {
+                            console.log(res);
+                            this.list = res.data.data;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
