@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>防疫期间员工每日健康统计</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <style>
         [v-cloak] {
             display: none;
@@ -16,15 +17,23 @@
 <body>
     <div id="app" v-cloak>
         <div>
+            <div>
+                <el-button @click="visible = true">Button</el-button>
+                <el-dialog :visible.sync="visible" title="Hello world">
+                    <p>Try Element</p>
+                </el-dialog>
+            </div>
             <h2>{{mes}}</h2>
             <ul>
                 <li v-for="(item, index) in list" :key="index">
-                    {{index}}-{{item.title}}
+                    {{item.title}}
+                    <p v-for="oitem in item.options">{{oitem}}</p>
                 </li>
             </ul>
         </div>
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.js"></script>
     <script>
         const ajax = axios.create({
@@ -37,6 +46,7 @@
         new Vue({
             el: '#app',
             data: {
+                visible: false,
                 mes: '防疫期间员工每日健康统计',
                 list: null
             },
