@@ -12,24 +12,23 @@
         }
     </style>
 </head>
-<!-- 参考： https://www.wjx.cn/xz/55556701.aspx -->
 
 <body>
     <div id="app" v-cloak>
         <div>
-            <div>
-                <el-button @click="visible = true">Button</el-button>
-                <el-dialog :visible.sync="visible" title="Hello world">
-                    <p>Try Element</p>
-                </el-dialog>
-            </div>
-            <h2>{{mes}}</h2>
-            <ul>
-                <li v-for="(item, index) in list" :key="index">
-                    {{item.title}}
-                    <p v-for="oitem in item.options">{{oitem}}</p>
-                </li>
-            </ul>
+            <h2>{{title}}</h2>
+            <el-form ref="form" :model="form">
+                <el-form-item label="请输入姓名" label-width="80px">
+                    <el-input width="50px" :size='small' v-model="userName" placeholder="请输入您的姓名"></el-input>
+                </el-form-item>
+                <el-form-item v-for="(item, index) in list" :key="index" :label="item.title">
+                    <el-radio-group v-model="radioArr[index]"
+                        @change="radioChange(index,{id: item.id, answer: radioArr[index]})">
+                        <el-radio v-for="citem in item.options" :label="citem"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-form>
+            <el-button @click="submit">Submit</el-button>
         </div>
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
@@ -43,12 +42,16 @@
                 'X-Custom-Header': 'foobar'
             }
         });
-        new Vue({
+        const app = new Vue({
             el: '#app',
             data: {
-                visible: false,
-                mes: '防疫期间员工每日健康统计',
-                list: null
+                title: '防疫期间员工每日健康统计',
+                list: null,
+                userName: '',
+                form: {
+                    radioList: []
+                },
+                radioArr: [] // 临时的单选题数组
             },
             created() {
                 this.getQuestion()
@@ -63,6 +66,23 @@
                         .catch((err) => {
                             console.log(err);
                         });
+                },
+                radioChange(index, obj) {
+                    this.form.radioList[index] = obj;
+                    console.log(this.form.radioList, this.radioArr)
+                },
+                submit() {
+                    ajax.post('/', {
+                            userName: this.userName,
+                            answerData: this.form.radioList
+                        })
+                        .then(res => {
+                            console.log(res)
+                            this.$message.success('Submit Success!');
+                        }).catch(err => {
+                            console.error(err)
+                            this.$message.error('Submit Fail!');
+                        })
                 }
             },
         })

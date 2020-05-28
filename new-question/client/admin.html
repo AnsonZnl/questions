@@ -5,10 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>防疫期间员工每日健康统计 | 后台管理系统</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
 </head>
-
 <body>
-    
+    <div id="app" v-cloak>
+        <h2>{{title}}</h2>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.13.2/index.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.js"></script>
+    <script>
+        const ajax = axios.create({
+            baseURL: 'http://localhost:3000',
+            timeout: 1000,
+            headers: {
+                'X-Custom-Header': 'foobar'
+            }
+        });
+        const app = new Vue({
+            el: '#app',
+            data:{
+                title: '后台管理系统'
+            },
+            created() {
+                ajax.get('/admin').then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.error(err)
+                })
+                ajax.get('/admin/answer').then(res=>{
+                    console.log(res)
+                }).catch(err=>{
+                    console.error(err)
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

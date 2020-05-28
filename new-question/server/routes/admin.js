@@ -5,13 +5,30 @@ const router = new Router({
 })
 
 router.get('/', async ctx => {
-    let res = await http.get('/api/test/count', {
+    let res = await http.get('/api/question', {
         params: {
             filter: {
-                "where": {}
+                "where": {},
+                "skip": 0,
+                "limit": 20
             }
         }
     })
+    ctx.body = {
+        success: true,
+        data: res.data
+    }
+})
+router.get('/answer', async ctx => {
+    let res = await http.get('/api/answer', {
+        params: {
+            filter: {
+                "where": {},
+                "skip": 0,
+                "limit": 20
+            }
+        }
+    });
     ctx.body = {
         success: true,
         data: res.data

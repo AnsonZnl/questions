@@ -12,4 +12,13 @@ router.get('/', async ctx => {
         data: res.data
     }
 })
+router.post('/',async ctx=>{
+    let answerData = JSON.stringify(ctx.request.body.answerData)
+    let userName = ctx.request.body.userName
+    let res = await http.post('/api/answer', {userName, answerData})
+    ctx.body = {
+        success: true,
+        data: {id: res.data.id}
+    }
+})
 module.exports = router
